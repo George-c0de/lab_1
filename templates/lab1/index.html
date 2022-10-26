@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лаба 1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<p>Добавить запись</p>
+<form method="post" action="{% url 'insert' %}">
+    {% csrf_token %}
+    <label>Имя фильма
+        <input name="name" required type="text">
+    </label>
+    <label>Оценка
+        <input type="number" min="1" max="5" required name="score">
+    </label>
+    <button type="submit">Сохранить</button>
+</form>
+<form method="POST" action="{% url 'push' %}">
+    {% csrf_token %}
+    <label>id
+        <input name="id" required type="text">
+    </label>
+    <label>name
+        <input name="name" type="text">
+    </label>
+    <label>score
+        <input name="score" type="text">
+    </label>
+    <button type="submit">Сохранить</button>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Название</th>
+        <th scope="col">Оценка</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for el in table %}
+        <tr>
+            <td>{{ el.id }}</td>
+            <td>{{ el.name }}</td>
+            <td>{{ el.score }}</td>
+            <td><a href="delete/{{ el.id }}">Удалить</a></td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+</body>
+</html>
